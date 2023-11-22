@@ -1,0 +1,291 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<conio.h>
+
+void display();
+void Create_Link_List();
+
+void Insert_F();
+void Insert_M();
+void Insert_E();
+void del_F();
+void del_M();
+void del_E();
+void search();
+void display();
+
+struct node
+{
+    char name[20];
+    int Phone_Number;
+    char blood_group[5],Districk[20];
+
+    struct node *next;
+}*head;
+
+char name[20];
+int Phone_Number;
+char blood_group[5],Districk[20];
+int position,i;
+
+
+
+
+
+
+
+int main()
+{
+    int n;
+    Create_Link_List();
+    //display();
+    while(1)
+    {
+
+        printf("1 . Insert F\n");
+        printf("2 . Insert M\n");
+        printf("3 . Insert E\n");
+        printf("4.  Delete F\n");
+        printf("5.  Delete M\n");
+        printf("6.  Delete E\n");
+        printf("7. Search\n");
+        printf("8. Show All\n");
+        scanf("%d",&n);
+        if(n==1)
+        {
+            Insert_F();
+            //display();
+        }
+        else if(n==2)
+        {
+            Insert_M();
+            //display();
+        }
+        else if(n==3)
+        {
+            Insert_E();
+            // display();
+        }
+        else if(n==4)
+        {
+            del_F();
+            //display();
+        }
+        else if(n==5)
+        {
+            del_M();
+            //display();
+        }
+        else if(n==6)
+        {
+            del_E();
+            //display();
+        }
+        else if(n==7)
+        {
+            search();
+            //display();
+        }
+        else if(n==8)
+        {
+            display();
+        }
+        else
+        {
+            printf("Enter Chose Current number \n");
+        }
+    }
+    getch();
+}
+
+
+
+void search()
+{
+    struct node *temp = head;
+    printf("Enter blood group :  ");
+    scanf("%s",&blood_group);
+    while(temp !=NULL)
+    {
+        if(strcmp(temp->blood_group,blood_group)==0)
+        {
+            printf("Name : %s\n",temp->name);
+            printf("Number : %d\n",temp->Phone_Number);
+            printf("Blood group : %s\n",temp->blood_group);
+            printf("District : %s\n\n\n\n",temp->Districk);
+        }
+        temp = temp->next;
+    }
+}
+
+void del_F()
+{
+    struct node *temp;
+    temp = head;
+    head = head ->next;
+    free(temp);
+}
+
+void del_M()
+{
+    printf("Enter position : ");
+    scanf("%d",&position);
+    struct node *p,*q;
+    p = head;
+    q = head ->next ;
+    for( i =2; i<position-1; i++)
+    {
+        p = p->next;
+        q = q->next;
+    }
+    p->next = q->next;
+    free(q);
+}
+void del_E()
+{
+    struct node *p,*q;
+    p = head;
+    q = head ->next ;
+    while(q->next !=NULL)
+    {
+        p = p->next;
+        q = q->next;
+    }
+    p->next =NULL;
+    free(q);
+}
+
+
+void Create_Link_List()
+{
+    struct node *temp,*newnode;
+    int node,i;
+    printf("Enter number of node : ");
+    scanf("%d",&node);
+    head = (struct node *)malloc(sizeof(struct node));
+    printf("Enter name : ");
+    scanf("%s",&name);
+    strcpy(head->name,name);
+    printf("Personal Phone number : ");
+    scanf("%d",&Phone_Number);
+    head->Phone_Number = Phone_Number;
+    printf("Blood Group : ");
+    scanf("%s",&blood_group);
+    strcpy(head->blood_group,blood_group);
+    printf("District : ");
+    scanf("%s",&Districk);
+    strcpy(head->Districk,Districk);
+    head ->next = NULL;
+
+    temp = head;
+
+
+    for(i=2; i<=node; i++)
+    {
+        newnode = (struct node *)malloc(sizeof(struct node));
+        printf("Enter name : ");
+        scanf("%s",&name);
+        strcpy(newnode->name,name);
+        printf("Personal Phone number : ");
+        scanf("%d",&Phone_Number);
+        newnode->Phone_Number = Phone_Number;
+        printf("Blood Group : ");
+        scanf("%s",&blood_group);
+        strcpy(newnode->blood_group,blood_group);
+        printf("District : ");
+        scanf("%s",&Districk);
+        strcpy(newnode->Districk,Districk);
+        newnode ->next = NULL;
+
+        temp->next = newnode;
+        temp = temp->next;
+    }
+
+}
+void Insert_F()
+{
+
+    struct node *newnode;
+    newnode = (struct node *)malloc(sizeof(struct node));
+    printf("Enter name : ");
+    scanf("%s",&name);
+    strcpy(newnode->name,name);
+    printf("Personal Phone number : ");
+    scanf("%d",&Phone_Number);
+    newnode->Phone_Number = Phone_Number;
+    printf("Blood Group : ");
+    scanf("%s",&blood_group);
+    strcpy(newnode->blood_group,blood_group);
+    printf("District : ");
+    scanf("%s",&Districk);
+    strcpy(newnode->Districk,Districk);
+    newnode->next = NULL;
+    newnode->next = head;
+    head = newnode;
+}
+void Insert_M()
+{
+    struct node *temp= head, *newnode ;
+    printf("Enter position ; ");
+    scanf("%d",&position);
+    newnode = (struct node *)malloc(sizeof(struct node));
+    printf("Enter name : ");
+    scanf("%s",&name);
+    strcpy(newnode->name,name);
+    printf("Personal Phone number : ");
+    scanf("%d",&Phone_Number);
+    newnode->Phone_Number = Phone_Number;
+    printf("Blood Group : ");
+    scanf("%s",&blood_group);
+    strcpy(newnode->blood_group,blood_group);
+    printf("District : ");
+    scanf("%s",&Districk);
+    strcpy(newnode->Districk,Districk);
+    newnode ->next = NULL;
+    for( i =2; i<position-1; i++)
+    {
+        temp = temp->next;
+    }
+    if(temp!=NULL)
+    {
+        newnode ->next = temp->next;
+        temp ->next = newnode;
+    }
+}
+void Insert_E()
+{
+    struct node *temp = head,*newnode;
+    newnode = (struct node *)malloc(sizeof(struct node));
+    printf("Enter name : ");
+    scanf("%s",&name);
+    strcpy(newnode->name,name);
+    printf("Personal Phone number : ");
+    scanf("%d",&Phone_Number);
+    newnode->Phone_Number = Phone_Number;
+    printf("Blood Group : ");
+    scanf("%s",&blood_group);
+    strcpy(newnode->blood_group,blood_group);
+    printf("District : ");
+    scanf("%s",&Districk);
+    strcpy(newnode->Districk,Districk);
+    newnode ->next = NULL;
+    temp = head;
+    while(temp!=NULL && temp->next !=NULL)
+    {
+        temp = temp->next;
+    }
+    temp->next = newnode;
+}
+void display()
+{
+    struct node *temp = head;
+    while(temp!=NULL)
+    {
+        printf("Name : %s\n",temp->name);
+        printf("Number : %d\n",temp->Phone_Number);
+        printf("Blood group : %s\n",temp->blood_group);
+        printf("District : %s\n\n\n\n",temp->Districk);
+        temp= temp->next;
+    }
+}
